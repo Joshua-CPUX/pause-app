@@ -28,12 +28,18 @@ export function Player({ slug }: { slug: string }) {
   }, []);
 
   useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
     if (isPlaying) {
-      audioRef.current?.play();
+      // Ensure there is a source before trying to play
+      if (audio.src) {
+        audio.play().catch(error => console.error("Error playing audio:", error));
+      }
     } else {
-      audioRef.current?.pause();
+      audio.pause();
     }
-  }, [isPlaying]);
+  }, [isPlaying, session]); // Add session to dependency array
 
   useEffect(() => {
     if (!isPlaying || !timeLeft || timeLeft <= 0) {
