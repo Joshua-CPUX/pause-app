@@ -16,5 +16,5 @@ export default function SessionPage({ params }: SessionPageProps) {
     notFound();
   }
 
-  return <Player session={session} />;
+  return <Player slug={params.slug} />;
 }

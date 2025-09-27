@@ -4,13 +4,20 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { X, Play, Pause as PauseIcon } from "lucide-react";
-import type { Session } from "@/lib/sessions";
+import { getSessionBySlug, type Session } from "@/lib/sessions";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-export function Player({ session }: { session: Session }) {
-  const [timeLeft, setTimeLeft] = useState(session.durationInSeconds);
+export function Player({ slug }: { slug: string }) {
+  const [session, setSession] = useState<Session | undefined>(undefined);
+  const [timeLeft, setTimeLeft] = useState<number | undefined>(undefined);
   const [isPlaying, setIsPlaying] = useState(true);
+
+  useEffect(() => {
+    const foundSession = getSessionBySlug(slug);
+    setSession(foundSession);
+    setTimeLeft(foundSession?.durationInSeconds);
+  }, [slug]);
 
   useEffect(() => {
     document.body.classList.add("player-active");
@@ -20,12 +27,12 @@ export function Player({ session }: { session: Session }) {
   }, []);
 
   useEffect(() => {
-    if (!isPlaying || timeLeft <= 0) {
+    if (!isPlaying || !timeLeft || timeLeft <= 0) {
       return;
     }
 
     const timer = setInterval(() => {
-      setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
+      setTimeLeft((prevTime) => (prevTime ? (prevTime > 0 ? prevTime - 1 : 0) : 0));
     }, 1000);
 
     return () => clearInterval(timer);
@@ -44,6 +51,10 @@ export function Player({ session }: { session: Session }) {
     const secs = (seconds % 60).toString().padStart(2, "0");
     return `${mins}:${secs}`;
   };
+  
+  if (!session || timeLeft === undefined) {
+    return null; // Or a loading spinner
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-animation text-primary-foreground">
