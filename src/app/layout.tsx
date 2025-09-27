@@ -5,7 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: '暂停：静心时刻',
+  title: '汐流：静心时刻',
   description: '一款为忙碌的专业人士设计的极简冥想应用，帮助他们在一天中找到片刻的宁静。',
 };
 

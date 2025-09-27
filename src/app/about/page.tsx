@@ -29,7 +29,7 @@ export default function AboutPage() {
       <main className="flex-1 px-4 md:px-6">
         <div className="mx-auto max-w-2xl">
           <div className="space-y-4 text-center">
-            <h1 className="text-4xl font-bold text-primary">暂停</h1>
+            <h1 className="text-4xl font-bold text-primary">汐流</h1>
             <p className="text-lg text-muted-foreground">
               旨在帮助您在忙碌的一天中找到片刻的宁静。
             </p>

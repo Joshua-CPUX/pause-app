@@ -6,7 +6,7 @@ export function Logo({ className }: { className?: string }) {
     <div
       className={cn("font-headline text-2xl font-bold text-primary", className)}
     >
-      暂停
+      汐流
     </div>
   );
 }
