@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { X, Play, Pause as PauseIcon } from "lucide-react";
 import { getSessionBySlug, type Session } from "@/lib/sessions";
@@ -12,6 +12,7 @@ export function Player({ slug }: { slug: string }) {
   const [session, setSession] = useState<Session | undefined>(undefined);
   const [timeLeft, setTimeLeft] = useState<number | undefined>(undefined);
   const [isPlaying, setIsPlaying] = useState(true);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const foundSession = getSessionBySlug(slug);
@@ -27,7 +28,18 @@ export function Player({ slug }: { slug: string }) {
   }, []);
 
   useEffect(() => {
+    if (isPlaying) {
+      audioRef.current?.play();
+    } else {
+      audioRef.current?.pause();
+    }
+  }, [isPlaying]);
+
+  useEffect(() => {
     if (!isPlaying || !timeLeft || timeLeft <= 0) {
+      if (timeLeft === 0) {
+        setIsPlaying(false);
+      }
       return;
     }
 
@@ -58,6 +70,7 @@ export function Player({ slug }: { slug: string }) {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-animation text-primary-foreground">
+      {session.audioUrl && <audio ref={audioRef} src={session.audioUrl} />}
       <Button
         variant="ghost"
         size="icon"
