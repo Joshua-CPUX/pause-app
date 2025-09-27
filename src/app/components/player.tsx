@@ -70,7 +70,7 @@ export function Player({ slug }: { slug: string }) {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-animation text-primary-foreground">
-      {session.audioUrl && <audio ref={audioRef} src={session.audioUrl} />}
+      {session.audioUrl && <audio ref={audioRef} src={session.audioUrl} autoPlay loop />}
       <Button
         variant="ghost"
         size="icon"
@@ -78,7 +78,7 @@ export function Player({ slug }: { slug: string }) {
         asChild
       >
         <Link href="/">
-          <X className="h-8 w-8" />
+          <X className="h-8 w-8" style={{ filter: "drop-shadow(0 1px 1px hsl(var(--foreground) / 0.2))" }} />
           <span className="sr-only">关闭课程</span>
         </Link>
       </Button>
@@ -89,7 +89,7 @@ export function Player({ slug }: { slug: string }) {
           !isPlaying && "animation-paused"
         )}
       >
-        <span className="font-mono text-6xl font-bold text-white md:text-7xl">
+        <span className="font-mono text-6xl font-bold text-white md:text-7xl" style={{ textShadow: "0 2px 4px hsl(var(--foreground) / 0.2)" }}>
           {formatTime(timeLeft)}
         </span>
       </div>
@@ -103,9 +103,9 @@ export function Player({ slug }: { slug: string }) {
           aria-label={isPlaying ? "暂停" : "播放"}
         >
           {isPlaying ? (
-            <PauseIcon className="h-10 w-10" fill="currentColor" />
+            <PauseIcon className="h-10 w-10" fill="currentColor" style={{ filter: "drop-shadow(0 1px 1px hsl(var(--foreground) / 0.2))" }} />
           ) : (
-            <Play className="h-10 w-10" fill="currentColor" />
+            <Play className="h-10 w-10" fill="currentColor" style={{ filter: "drop-shadow(0 1px 1px hsl(var(--foreground) / 0.2))" }} />
           )}
         </Button>
       </div>
