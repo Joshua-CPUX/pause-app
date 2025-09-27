@@ -30,7 +30,7 @@ export function AppHeader({
           <Button variant="ghost" size="icon" className="h-10 w-10" asChild>
             <Link href="/">
               <ArrowLeft className="h-6 w-6" />
-              <span className="sr-only">Back to Home</span>
+              <span className="sr-only">返回首页</span>
             </Link>
           </Button>
           <h1 className="text-xl font-bold text-foreground">{title}</h1>
@@ -40,7 +40,7 @@ export function AppHeader({
         <Button variant="ghost" size="icon" className="h-10 w-10" asChild>
           <Link href="/about">
             <Info className="h-6 w-6" />
-            <span className="sr-only">About page</span>
+            <span className="sr-only">关于页面</span>
           </Link>
         </Button>
       )}

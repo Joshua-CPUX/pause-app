@@ -10,7 +10,7 @@ export default function Home() {
       <main className="flex-1 px-4 md:px-6">
         <div className="mx-auto max-w-2xl py-8">
           <h1 className="mb-10 text-center text-3xl font-headline text-foreground md:text-4xl">
-            Take a moment to Pause
+            花点时间暂停一下
           </h1>
           <div className="space-y-4">
             {sessions.map((session) => (

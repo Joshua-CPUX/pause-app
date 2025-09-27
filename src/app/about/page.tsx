@@ -7,17 +7,17 @@ import { Separator } from "@/components/ui/separator";
 const aboutOptions = [
   {
     icon: Mail,
-    text: "Send Feedback",
+    text: "发送反馈",
     href: "mailto:feedback@pauseapp.dev",
   },
   {
     icon: Star,
-    text: "Rate on App Store",
+    text: "在应用商店评分",
     href: "#",
   },
   {
     icon: Shield,
-    text: "Privacy Policy",
+    text: "隐私政策",
     href: "#",
   },
 ];
@@ -25,13 +25,13 @@ const aboutOptions = [
 export default function AboutPage() {
   return (
     <div className="flex min-h-screen w-full flex-col bg-background">
-      <AppHeader variant="page" title="About" />
+      <AppHeader variant="page" title="关于" />
       <main className="flex-1 px-4 md:px-6">
         <div className="mx-auto max-w-2xl">
           <div className="space-y-4 text-center">
-            <h1 className="text-4xl font-bold text-primary">Pause</h1>
+            <h1 className="text-4xl font-bold text-primary">暂停</h1>
             <p className="text-lg text-muted-foreground">
-              Crafted to help you find a moment of peace in your busy day.
+              旨在帮助您在忙碌的一天中找到片刻的宁静。
             </p>
           </div>
 

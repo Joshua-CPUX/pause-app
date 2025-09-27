@@ -55,7 +55,7 @@ export function Player({ session }: { session: Session }) {
       >
         <Link href="/">
           <X className="h-8 w-8" />
-          <span className="sr-only">Close Session</span>
+          <span className="sr-only">关闭课程</span>
         </Link>
       </Button>
 
@@ -76,7 +76,7 @@ export function Player({ session }: { session: Session }) {
           size="icon"
           className="h-20 w-20 rounded-full text-primary-foreground/80 hover:text-primary-foreground hover:bg-white/20"
           onClick={() => setIsPlaying(!isPlaying)}
-          aria-label={isPlaying ? "Pause" : "Play"}
+          aria-label={isPlaying ? "暂停" : "播放"}
         >
           {isPlaying ? (
             <PauseIcon className="h-10 w-10" fill="currentColor" />

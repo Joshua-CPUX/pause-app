@@ -5,8 +5,8 @@ import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: 'Pause: Mindful Moments',
-  description: 'A minimalist meditation app for busy professionals to find a moment of peace in their day.',
+  title: '暂停：静心时刻',
+  description: '一款为忙碌的专业人士设计的极简冥想应用，帮助他们在一天中找到片刻的宁静。',
 };
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="zh-CN" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

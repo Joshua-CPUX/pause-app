@@ -6,7 +6,7 @@ export function Logo({ className }: { className?: string }) {
     <div
       className={cn("font-headline text-2xl font-bold text-primary", className)}
     >
-      Pause
+      暂停
     </div>
   );
 }

@@ -13,67 +13,67 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const RecommendSessionInputSchema = z.object({
-  schedule: z.string().describe('The user\'s current daily schedule.'),
-  mood: z.string().describe('The user\'s current mood.'),
-  pastActivity: z.string().describe('The user\'s past meditation activity.'),
+  schedule: z.string().describe('用户的当前日程安排。'),
+  mood: z.string().describe('用户的当前情绪。'),
+  pastActivity: z.string().describe('用户的过去冥想活动。'),
 });
 
 export type RecommendSessionInput = z.infer<typeof RecommendSessionInputSchema>;
 
 const MeditationSessionSchema = z.object({
-  title: z.string().describe('The title of the meditation session.'),
-  duration: z.string().describe('The duration of the meditation session (e.g., \'5 MIN\').'),
-  description: z.string().describe('A short description of the meditation session.'),
-  icon: z.string().describe('A simple, elegant line-art icon representing the session.'),
-  script: z.string().describe('The script of the meditation session.'),
+  title: z.string().describe('冥想课程的标题。'),
+  duration: z.string().describe('冥想课程的持续时间（例如，“5分钟”）。'),
+  description: z.string().describe('冥想课程的简短描述。'),
+  icon: z.string().describe('代表课程的简单、优雅的线条艺术图标。'),
+  script: z.string().describe('冥想课程的脚本。'),
 });
 
 const RecommendSessionOutputSchema = z.object({
-  session: MeditationSessionSchema.describe('The recommended meditation session.'),
-  reason: z.string().describe('The reason for recommending this session.'),
+  session: MeditationSessionSchema.describe('推荐的冥想课程。'),
+  reason: z.string().describe('推荐此课程的原因。'),
 });
 
 export type RecommendSessionOutput = z.infer<typeof RecommendSessionOutputSchema>;
 
 const meditationSessions = [
   {
-    title: 'Midday Reset',
-    duration: '5 MIN',
-    description: 'Clear your mind for the afternoon.',
+    title: '午间重置',
+    duration: '5分钟',
+    description: '清理思绪，迎接下午。',
     icon: 'coffee',
-    script: 'Breathe in... Breathe out... Visualize a peaceful space...', // Example script
+    script: '吸气... 呼气... 想象一个宁静的空间...', // 示例脚本
   },
   {
-    title: 'Evening Wind Down',
-    duration: '10 MIN',
-    description: 'Relax and prepare for sleep.',
+    title: '晚间放松',
+    duration: '10分钟',
+    description: '放松并准备入睡。',
     icon: 'moon',
-    script: 'Release the day\'s tension... Focus on your breath...', // Example script
+    script: '释放一天的紧张... 专注于你的呼吸...', // 示例脚本
   },
   {
-    title: 'Morning Motivation',
-    duration: '7 MIN',
-    description: 'Start your day with positive energy.',
+    title: '晨间激励',
+    duration: '7分钟',
+    description: '以积极的能量开始新的一天。',
     icon: 'sun',
-    script: 'Set your intentions for the day... Feel the energy flowing...', // Example script
+    script: '设定你今天的意图... 感受能量的流动...', // 示例脚本
   },
 ];
 
 const getRelevantSession = ai.defineTool(
   {
     name: 'getRelevantSession',
-    description: 'Retrieves a relevant meditation session from a list of available sessions.',
+    description: '从可用课程列表中检索相关的冥想课程。',
     inputSchema: z.object({
-      schedule: z.string().describe('The user\'s current daily schedule.'),
-      mood: z.string().describe('The user\'s current mood.'),
-      pastActivity: z.string().describe('The user\'s past meditation activity.'),
+      schedule: z.string().describe('用户的当前日程安排。'),
+      mood: z.string().describe('用户的当前情绪。'),
+      pastActivity: z.string().describe('用户的过去冥想活动。'),
     }),
     outputSchema: MeditationSessionSchema,
   },
   async (input) => {
-    // In a real application, this would use a database or other persistent storage.
-    // For now, we'll just return a hardcoded session.
-    // You could implement logic here to select a session based on the input parameters.
+    // 在真实的应用中，这里会使用数据库或其他持久化存储。
+    // 现在，我们只返回一个硬编码的课程。
+    // 你可以在这里实现逻辑，根据输入参数选择一个课程。
     return meditationSessions[0];
   }
 );
@@ -87,20 +87,20 @@ const prompt = ai.definePrompt({
   input: {schema: RecommendSessionInputSchema},
   output: {schema: RecommendSessionOutputSchema},
   tools: [getRelevantSession],
-  prompt: `Based on the user's schedule, mood, and past activity, recommend a meditation session from the available sessions.
+  prompt: `根据用户的日程安排、情绪和过去的活动，从可用的课程中推荐一个冥想课程。
 
-Schedule: {{{schedule}}}
-Mood: {{{mood}}}
-Past Activity: {{{pastActivity}}}
+日程安排: {{{schedule}}}
+情绪: {{{mood}}}
+过去的活动: {{{pastActivity}}}
 
-Consider the following:
-- Recommend a short session if the user has a busy schedule.
-- Recommend a session that matches the user's mood (e.g., calming for anxiety, energizing for fatigue).
-- Recommend a session that the user hasn't tried recently, or that complements their past activity.
+请考虑以下几点：
+- 如果用户日程繁忙，推荐一个简短的课程。
+- 推荐一个与用户情绪相匹配的课程（例如，针对焦虑的平静课程，针对疲劳的活力课程）。
+- 推荐一个用户最近没有尝试过的课程，或者与他们过去的活动互补的课程。
 
-Use the getRelevantSession tool to choose the best session.
+使用 getRelevantSession 工具来选择最佳课程。
 
-Return the recommended session and the reason for recommending it.`, 
+返回推荐的课程和推荐它的原因。`, 
 });
 
 const recommendSessionFlow = ai.defineFlow(
